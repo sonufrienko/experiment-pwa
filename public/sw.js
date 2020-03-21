@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-restricted-globals */
 
 /**
@@ -133,9 +134,9 @@ self.addEventListener('activate', event => {
   event.waitUntil(Promise.all([self.clients.claim(), deleteOldCaches()]));
 });
 
-self.addEventListener('fetch', async event => {
+self.addEventListener('fetch', event => {
   event.respondWith(
-    (async () => {
+    (() => {
       const { url } = event.request;
 
       /**
@@ -156,14 +157,47 @@ self.addEventListener('message', event => {
 });
 
 self.addEventListener('push', async event => {
-  const text = await event.data.text();
-  console.log(text);
+  const jsonData = await event.data.json();
+  console.log('Service Worker, push event: ', jsonData);
+  const { title, body, url, icon, image } = jsonData;
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      icon,
+      image,
+      data: { url }
+    })
+  )
 });
 
 self.addEventListener('sync', event => {
-  // todo
+  // SyncManager
 });
 
+const getCurrentClient = async () => {
+  const [ firstClient ] = await self.clients.matchAll({ includeUncontrolled: true, type: 'window' });
+  return firstClient;
+}
+
 self.addEventListener('notificationclick', event => {
-  // todo
+  const { notification } = event;
+  const { url } = notification.data;
+  console.log('Service Worker, notification click', notification.data);
+  notification.close();
+
+  event.waitUntil(
+    getCurrentClient().then(client => {
+      if (client) {
+        client.focus();
+        client.navigate(url);
+      } else {
+        clients.openWindow(url);
+      }
+    })
+  )
+});
+
+self.addEventListener('notificationclose', event => {
+  // nothing to do
 });

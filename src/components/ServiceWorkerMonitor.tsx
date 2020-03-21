@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
 
 export default () => {
   const [ log, setLog ] = useState<string>('');
-  const [ messageText, setMessageText ] = useState<string>('');
 
   useEffect(() => {
     if ('serviceWorker' in navigator) {
@@ -23,10 +20,6 @@ export default () => {
           });
         });
       });
-
-      navigator.serviceWorker.addEventListener('message', event => {
-        alert(event.data);
-      })
     }
   }, []);
 
@@ -38,16 +31,6 @@ export default () => {
     });
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setMessageText(event.target.value);
-  }
-
-  const sendMessage = () => {
-    if (navigator.serviceWorker.controller) {
-      navigator.serviceWorker.controller.postMessage(messageText);
-    }
-  }
-
   return (
     <Paper>
       <div style={{ padding: 20, margin: '30px 0' }}>
@@ -55,22 +38,6 @@ export default () => {
         <Typography variant="overline" gutterBottom>
           {log && `>>> ${log}`}
         </Typography>
-        <Divider style={{ margin: '20px 0' }} />
-        <TextField 
-          id="messageText" 
-          label="Message for Service Worker" 
-          variant="outlined" 
-          value={messageText} 
-          onChange={handleChange} 
-          margin="dense"
-          style={{
-            width: 300
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <Button style={{ margin: '10px 0 0 10px' }} onClick={sendMessage} variant="contained" color="primary">Send</Button>
       </div>
     </Paper>
   );

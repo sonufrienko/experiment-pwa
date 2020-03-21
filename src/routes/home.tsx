@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Box from '@material-ui/core/Box';
 import ServiceWorkerMonitor from '../components/ServiceWorkerMonitor';
+import Notifications from '../components/Notifications';
 import Weather from '../components/Weather';
 
 const Logo = styled.img`
@@ -16,6 +17,7 @@ export default () => {
       <Logo src="/pwalogo.svg" alt="pwa" />
       Wellcome to experiments on PWA.
       <ServiceWorkerMonitor />
+      <Notifications />
       <Weather cityName="lisboa" />
     </Box>
   );
