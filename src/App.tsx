@@ -13,6 +13,7 @@ import HomeRoute from './routes/home';
 import CountriesRoute from './routes/countries';
 import MoviesRoute from './routes/movies';
 import MovieDetailsRoute from './routes/movieDetails';
+import TrackerRoute from './routes/tracker';
 
 const theme = createMuiTheme({
   palette: {
@@ -54,6 +55,7 @@ export default function App() {
               <Route exact path="/countries" component={CountriesRoute} />
               <Route exact path="/movies" component={MoviesRoute} />
               <Route exact path="/movies/:movieId" component={MovieDetailsRoute} />
+              <Route exact path="/tracker" component={TrackerRoute} />
             </Switch>
           </Container>
         </StylesProvider>
