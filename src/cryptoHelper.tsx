@@ -78,7 +78,6 @@ const importKey = (pem: string, isPublicKey: boolean) => {
 
 export const encryptMessage = async (publicKey: string, message: string) => {
   const key = await importKey(publicKey, true);
-  debugger;
   const enc = new TextEncoder();
   const encoded = enc.encode(message);
 
