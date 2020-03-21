@@ -33,6 +33,7 @@ function ElevationScroll(props: ScrollProps) {
 
 const drawerItems = [
   { url: '/', title: 'Home' },
+  { url: '/tracker', title: 'Location tracker' },
   { url: '/countries', title: 'Countries' },
   { url: '/movies', title: 'Movies' }
 ];
@@ -41,6 +42,7 @@ const pageTitles = new Map([
   ['/', 'Experiments on PWA'],
   ['/countries', 'Countries'],
   ['/movies', 'Movies'],
+  ['/tracker', 'Location tracker'],
 ])
 
 const useStyles = makeStyles((theme: Theme) => ({
