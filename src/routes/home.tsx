@@ -4,6 +4,7 @@ import Box from '@material-ui/core/Box';
 import ServiceWorkerMonitor from '../components/ServiceWorkerMonitor';
 import Notifications from '../components/Notifications';
 import Weather from '../components/Weather';
+import WebAuthn from '../components/WebAuthn';
 
 const Logo = styled.img`
   max-height: 48px;
@@ -17,6 +18,7 @@ export default () => {
       <Logo src="/pwalogo.svg" alt="pwa" />
       Wellcome to experiments on PWA.
       <ServiceWorkerMonitor />
+      <WebAuthn />
       <Notifications />
       <Weather cityName="lisboa" />
     </Box>
